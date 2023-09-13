@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sound Frequency Analyzer</title>
+    <link href="sample.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Sound Frequency Analyzer</h1>
+    
+    <div class="class1">
+        <button id="startAnalyzerButton">Start Analyzing</button>
+        <button id="stopAnalyzerButton" disabled class="button2">Stop Analyzing</button> </div>
+        <br>
+        <div id="frequencyDisplay" class="div1">Frequency: N/A</div>
+        <div class="div2">
+           <center> <label>Captured Frequency (Hz):</label> 
+            <button onclick="sub()" class="button3">-</button> <input style="border-radius: 25px;text-align: center;" size="9" id="mostFrequentFrequency" type="text" min="20">
+            <button onclick="add()">+</button></center>
+         </div>
+      
+   
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 style="color: black; text-shadow: 2px 2px white;">Tinnitus Sound Generator</h1>
+    <div class="class1">
+        <div>
+            <br>
+    <button id="startTinnitusButton">Start Tinnitus</button>
+    <button id="stopTinnitusButton" disabled class="button2">Stop Tinnitus</button>
+</div>
+</div>
+   
+    <script>
+        let audioContext;
+        let analyser;
+        let microphoneStream;
+        let frequencyArray = [];
+        let audioContext1;
+        let tinnitusOscillator;
+      
+        const frequencyDisplay = document.getElementById('frequencyDisplay');
+        const mostFrequentFrequencyDisplay = document.getElementById('mostFrequentFrequency');
+        const startAnalyzerButton = document.getElementById('startAnalyzerButton');
+        const stopAnalyzerButton = document.getElementById('stopAnalyzerButton');
+        const tinnitusFrequencyInput = document.getElementById('mostFrequentFrequency');
+        const startTinnitusButton = document.getElementById('startTinnitusButton');
+        const stopTinnitusButton = document.getElementById('stopTinnitusButton');
+        startAnalyzerButton.addEventListener('click', startAnalyzing);
+        stopAnalyzerButton.addEventListener('click', stopAnalyzing);
+        startTinnitusButton.addEventListener('click', startTinnitus);
+        stopTinnitusButton.addEventListener('click', stopTinnitus);
+
+        async function startAnalyzing() {
+            try {
+                frequencyArray = []; // Reset the frequency array
+                microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+
+                const microphoneInput = audioContext.createMediaStreamSource(microphoneStream);
+                microphoneInput.connect(analyser);
+
+                analyser.fftSize = 2048;
+                analyser.smoothingTimeConstant = 0.8;
+
+                startAnalyzerButton.disabled = true;
+                stopAnalyzerButton.disabled = false;
+                frequencyDisplay.textContent = 'Frequency: N/A';
+
+                analyzeSound();
+                setTimeout(stopAnalyzing, 5000); // Stop after 5 seconds
+            } catch (error) {
+                console.error('Error accessing the microphone:', error);
+            }
+        }
+
+        function stopAnalyzing() {
+            if (microphoneStream) {
+                microphoneStream.getTracks().forEach((track) => {
+                    track.stop();
+                });
+                audioContext.close();
+                startAnalyzerButton.disabled = false;
+                stopAnalyzerButton.disabled = true;
+
+                // Find the most frequent frequency
+                const mostFrequent = findMostFrequentFrequency(frequencyArray);
+                mostFrequentFrequencyDisplay.value = + mostFrequent.toFixed(2);
+            }
+        }
+
+        function analyzeSound() {
+            if (analyser) {
+                let dataArray = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(dataArray);
+
+                let maxFrequencyIndex = dataArray.indexOf(Math.max(...dataArray));
+                let maxFrequency = maxFrequencyIndex * audioContext.sampleRate / analyser.fftSize;
+
+                frequencyDisplay.textContent = 'Frequency Analysis: ' + maxFrequency.toFixed(2) + ' Hz';
+
+                // Record the frequency in the array
+                frequencyArray.push(maxFrequency);
+
+                requestAnimationFrame(analyzeSound);
+            }
+        }
+
+        function findMostFrequentFrequency(arr) {
+            const frequencyMap = {};
+            let maxFrequency = null;
+            let maxFrequencyCount = 0;
+
+            for (const frequency of arr) {
+                if (frequencyMap[frequency]) {
+                    frequencyMap[frequency]++;
+                } else {
+                    frequencyMap[frequency] = 1;
+                }
+
+                if (frequencyMap[frequency] > maxFrequencyCount) {
+                    maxFrequencyCount = frequencyMap[frequency];
+                    maxFrequency = frequency;
+                }
+            }
+
+            return maxFrequency;
+        }
+    
+        function startTinnitus() {
+            const tinnitusFrequency = parseFloat(tinnitusFrequencyInput.value);
+            const minValue = 150;
+            const maxValue = 15000;
+            if (tinnitusFrequency < minValue) {
+        alert(`Value must be at least ${minValue} Hz, otherwise causes hearing loss.`);
+      }
+     else if (tinnitusFrequency > maxValue) {
+        alert(`Value should not exceed more than ${maxValue} Hz, otherwise causes hearing loss.`);
+      } else {
+       
+        if (!audioContext1) {
+                audioContext1 = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (!tinnitusOscillator) {
+                tinnitusOscillator = audioContext1.createOscillator();
+                tinnitusOscillator.type = 'sine';
+                tinnitusOscillator.frequency.setValueAtTime(tinnitusFrequency, audioContext1.currentTime);
+                tinnitusOscillator.connect(audioContext1.destination);
+                tinnitusOscillator.start();
+                startTinnitusButton.disabled = true;
+                stopTinnitusButton.disabled = false;
+            }
+      }
+           
+        }
+
+        function stopTinnitus() {
+            if (tinnitusOscillator) {
+                tinnitusOscillator.stop();
+                tinnitusOscillator.disconnect();
+                tinnitusOscillator = null;
+                startTinnitusButton.disabled = false;
+                stopTinnitusButton.disabled = true;
+            }
+        }
+        const max=10;
+        let c_sub=0,c_add=0;
+        function sub(){
+            if(c_sub<max){
+            var input = document.getElementById('mostFrequentFrequency');
+            var result=parseFloat(input.value);
+            input.value=result-1;
+        c_sub++;
+        }
+        }
+        function add(){
+            if(c_add<max){
+            var input = document.getElementById('mostFrequentFrequency');
+            var result=parseFloat(input.value);
+            input.value=result+1;
+        c_add++;
+        }
+        }
+    </script>
+</body>
+</html>
