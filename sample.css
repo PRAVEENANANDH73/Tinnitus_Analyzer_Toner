@@ -3,39 +3,42 @@
   padding: 0;
 }
 body{
+  text-align: center;
+}
+body .backgroundimg{
+  width: 100%;
   background-image: url("https://img.freepik.com/free-photo/hearing-issues-collage-design_23-2149831027.jpg?w=740&t=st=1694584069~exp=1694584669~hmac=e54a004bbeed3e41f856743f12b2e458eff861e771c22f66ca942ad7dc93d4dc");
-  background-size: 100% auto;
+  background-size: cover;
   background-repeat: no-repeat;
- 
+  height: 100vh;
 }
 h1{
   text-align: center;
   font-size: 50px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: white;
+  padding: 10px 30px;
 }
 h1:first-child{
-  margin-top: 4%;
+  padding-top: 5%;
   text-shadow: 2px 2px 2px black;
+}
+.bcenter{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 button{
   font-size: 20px;
-  margin-top: 20px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding: 10px;
   background-color: white;
   border-radius: 25px;
- 
-}
-.class1{
- 
- margin-left: 35%;
-margin-right: 17%;
+  justify-content: center;
 }
 .div1{
-font-size: 35px;
-text-align: center;
-margin-top: 15px;
+font-size: 30px;
+margin: 15px 0;
 color: white;
 text-shadow: 2px 2px 2px black;
 }
@@ -44,14 +47,67 @@ input{
   font-size: 25px;
   width: auto;
 }
+.button1{
+margin: 20px 20px 10px 20px;
+}
 .div2{
   font-size: 30px;
-  margin-bottom: 30px;
+  
 }
-.button2{
-  margin-left: 40px;
+.div3{
+  margin-top: 45px;
+}
+.div4{
+  color: black; 
+  text-shadow: 2px 2px white;
+  margin-top: 120px;
 }
 label:first-child{
   color: white;
   text-shadow: 2px 2px 2px black;
 }
+@media screen and (max-width: 600px) {
+ h1{
+  font-size: 40px;
+ }
+ button{
+  display: flex;
+  flex-wrap: wrap;
+ font-size: 20px;
+
+ }
+.div4{
+  margin-top: 40px;
+}
+.bcenter{
+  flex-direction: column;
+  width: 50%;
+  margin-left:25% ;
+}
+  }
+  @media screen and (max-width: 400px) {
+    h1{
+     font-size: 30px;
+    }
+    button{
+     display: flex;
+     flex-wrap: wrap;
+    font-size: 10px;}
+   .div1 {
+    font-size: 20px;
+   }
+   input{
+    font-size: 10px;
+   }
+   label{
+  font-size: 20px; 
+  }
+   .div4{
+     margin-top: 40px;
+   }
+   .bcenter{
+     flex-direction: column;
+     width: 50%;
+     margin-left:25% ;
+   }
+     }
