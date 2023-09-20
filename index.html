@@ -8,9 +8,28 @@
         <link href="sample.css" rel="stylesheet">
     </head>
     <body>
+        <div id="overlay">
+            <p>Welcome to our website! Take a quick guide before you start</p>
+            <p>This is where you can find important information.</p>
+            <img src="https://nathatshjalpen.se/static/vue/static/article-type-guide.svg">
+        </div>
+    <!-- Guide Container -->
+        <div class="guide-container" id="guideContainer">
+            <h2>Note*: Read the guidelines completely</h2>
+        <ol>
+          <li>Utilize only in-ear headphones to analyze the frequency of your tinnitus</li>
+          <li>Please access our website in a silent environment. </li>
+          <li>Frequency of tinnitus should not drop below 150 Hz</li>
+          <li>Please visit a doctor if the frequency range of your tinnitus rises above 15kilo Hz.</li>
+            <li>You may remain exposed to masking sound for a maximum of 20 minutes</li>
+            <li>If you feel irritated, use the alternate masking sound available in the website</li>
+        </ol>
+            <button id="closeGuideButton">Close</button>
+        </div>
+        <!-- Page text Start -->
         <div class="backgroundimg">
         <h1>Sound Frequency Analyzer</h1>
-        
+        <img class="guide" id="showGuideButton" width="50" height="50" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-guidelines-new-normal-flaticons-lineal-color-flat-icons.png" alt="external-guidelines-new-normal-flaticons-lineal-color-flat-icons"/>
      <div class="bcenter">
             <button id="startAnalyzerButton" class="button1">Start Analyzing</button>
             <button id="stopAnalyzerButton" disabled class="button1">Stop Analyzing</button>
@@ -28,6 +47,28 @@
     </div>
     </div>
         <script>
+              function showOverlay() {
+            var overlay = document.getElementById('overlay');
+            overlay.style.display = 'block';
+            setTimeout(function () {
+                overlay.style.display = 'none';
+            }, 5000); // 5 seconds
+        }
+
+        // Call the showOverlay function when the page loads
+        window.onload = showOverlay;
+        // Guide functions
+        const showGuideButton = document.getElementById("showGuideButton");
+  const guideContainer = document.getElementById("guideContainer");
+  const closeGuideButton = document.getElementById("closeGuideButton");
+
+  showGuideButton.addEventListener("click", function () {
+      guideContainer.style.display = "block"; // Show the guide
+  });
+
+  closeGuideButton.addEventListener("click", function () {
+      guideContainer.style.display = "none"; // Hide the guide when "Close" button is clicked
+  });
             let audioContext;
             let analyser;
             let microphoneStream;
