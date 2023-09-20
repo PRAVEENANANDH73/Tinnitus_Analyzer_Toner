@@ -95,7 +95,7 @@ label:first-child{
   left: 50%;
   text-align: center;
   width: auto;
-  height: 40%;
+  height: auto;
   transform: translate(-50%, -50%);
   background-color: #fff;
   padding: 20px 40px 20px 40px;
@@ -108,25 +108,35 @@ float: right;
 display: flex;
 margin-right: 20px;
 }
-.guide-container button:active{
+.guide-container button:hover{
 background-color: red;
 
 }
 .guide-container ol{
-text-align: left;
+text-align: justify;
 margin-top: 20px;
-margin-bottom: 20px;
 font-size: 20px;
 }
 .guide-container li{
-padding: 10px 0px;
+  padding-bottom: 1vh;
+}
+@media screen and (max-width: 960px) {
+  .guide-container{
+    height: 50%;
+  }
+  .guide-container ol{
+    font-size: 18px;
+  }
+  .guide-container h2{
+    font-size: 22px;
+    }
 }
 @media screen and (max-width: 600px) {
  h1{
   font-size: 30px;
  }
  
- button{
+ button:not(.guide-container button){
   display: flex;
   flex-wrap: wrap;
  font-size: 18px;
@@ -140,12 +150,27 @@ padding: 10px 0px;
   width: 50%;
   margin-left:25% ;
 }
+.guide-container{
+  width: 50%;
+  height: auto;
+
+}
+.guide-container ol{
+  font-size: 15px;
+}
+.guide-container button{
+  font-size: 15px;
+  padding: 1.5%;
+}
+.guide-container h2{
+font-size: 20px;
+}
   }
   @media screen and (max-width: 430px) {
     h1{
      font-size: 30px;
     }
-    button{
+    button:not(.guide-container button){
      display: flex;
      flex-wrap: wrap;
     font-size: 15px;
@@ -167,4 +192,14 @@ padding: 10px 0px;
      width: 50%;
      margin-left:25% ;
    }
+   .guide-container ol{
+    font-size: 10px;
+  }
+  .guide-container button{
+    font-size: 10px;
+    padding: 1.5%;
+  }
+  .guide-container h2{
+  font-size: 15px;
+  }
      }
