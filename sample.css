@@ -108,7 +108,7 @@ float: right;
 display: flex;
 margin-right: 20px;
 }
-.guide-container button:hover{
+.guide-container button:active{
 background-color: red;
 
 }
