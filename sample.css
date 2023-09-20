@@ -115,7 +115,11 @@ background-color: red;
 .guide-container ol{
 text-align: left;
 margin-top: 20px;
+margin-bottom: 20px;
 font-size: 20px;
+}
+.guide-container li{
+padding: 10px 0px;
 }
 @media screen and (max-width: 600px) {
  h1{
