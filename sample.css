@@ -73,7 +73,8 @@ margin: 20px 20px 10px 20px;
 }
 .div2{
   font-size: 30px;
-  
+  display: flex;
+  justify-content: center;
 }
 .div3{
   margin-top: 45px;
@@ -102,6 +103,9 @@ label:first-child{
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 9999;
   overflow: auto;
+}
+.div5{
+  margin-left: 1%;
 }
 .guide{
 float: right;
@@ -135,15 +139,19 @@ font-size: 20px;
  h1{
   font-size: 30px;
  }
- 
- button:not(.guide-container button){
+ button:not(.guide-container button, .div2 button){
   display: flex;
   flex-wrap: wrap;
  font-size: 18px;
-
+ }
+ .div2{
+  display: inline-block;
  }
 .div4{
   margin-top: 40px;
+}
+.div5{
+  margin-top: 5%;
 }
 .bcenter{
   flex-direction: column;
@@ -170,7 +178,7 @@ font-size: 20px;
     h1{
      font-size: 30px;
     }
-    button:not(.guide-container button){
+    button:not(.guide-container button, .div2 button){
      display: flex;
      flex-wrap: wrap;
     font-size: 15px;
@@ -191,9 +199,11 @@ font-size: 20px;
      flex-direction: column;
      width: 50%;
      margin-left:25% ;
+   }.guide-container{
+    height: 40%;
    }
    .guide-container ol{
-    font-size: 10px;
+    font-size: 15px;
   }
   .guide-container button{
     font-size: 10px;
