@@ -36,10 +36,13 @@
         </div>
             <div id="frequencyDisplay" class="div1">Frequency: N/A</div>
             <div class="div2">
-               <center> <label>Captured Frequency (Hz):</label> 
+               <label>Captured Frequency (Hz):</label>
+            <div class="div5">
                 <button onclick="sub()" class="button3">-</button> <input style="border-radius: 25px;text-align: center;" size="9" id="mostFrequentFrequency" min="20">
-                <button onclick="add()">+</button></center>
-             </div>
+                <button onclick="add()">+</button>
+            </div>
+            </div>
+            
         <h1 class="div4">Tinnitus Sound Generator</h1>
         <div class="bcenter">
         <button id="startTinnitusButton" class="button1">Start Tinnitus</button>
@@ -54,9 +57,11 @@
                 overlay.style.display = 'none';
             }, 5000); // 5 seconds
         }
-
+        document.addEventListener('DOMContentLoaded', function() {
+    showOverlay(); // Call your function here
+});
         // Call the showOverlay function when the page loads
-        window.onload = showOverlay;
+    //  window.onload = showOverlay;
         // Guide functions
         const showGuideButton = document.getElementById("showGuideButton");
   const guideContainer = document.getElementById("guideContainer");
